@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>गौ सेवा समिति नीमच | गौ सेवा ही मानव सेवा है</title>
+<meta name="description" content="गौ सेवा समिति नीमच — गौ माता की सेवा, संरक्षण और स्वास्थ्य देखभाल के लिए समर्पित। आज ही सहयोग करें।" />
+<meta property="og:title" content="गौ सेवा समिति नीमच | गौ सेवा ही मानव सेवा है" />
+<meta property="og:description" content="बेसहारा, बीमार, घायल व विकलांग गौवंश की सेवा और उपचार हेतु समर्पित संस्था — गौ सेवा समिति नीमच (रजि. 07/24/01/17288/22)" />
+<meta property="og:image" content="assets/logo.png" />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="./assets/logo.png">
+<link rel="apple-touch-icon" href="./assets/logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ TOP INFO BAR ============ 
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__badge hide-sm">रजि. 07/24/01/17288/22 · जय गौ माता 🙏</div>
+    <div class="topbar__left">
+      <span><i class="ic-pin"></i> Neemuch, Madhya Pradesh</span>
+      <span><i class="ic-phone"></i> +91 79098 07974</span>
+      <span class="hide-sm"><i class="ic-mail"></i> gausewadalnm@gmail.com</span>
+    </div>
+  </div>
+</div>
+-->
+
+<!-- ============ NAVIGATION (sticky on all breakpoints) ============ -->
+<header class="nav" id="mainNav">
+  <div class="container nav__inner">
+    <a href="#home" class="brand">
+      <span class="brand__logo"><img src="./assets/logo.png" alt="गौ सेवा समिति नीमच लोगो" /></span>
+      <span class="brand__text">
+        <strong>गौ सेवा समिति</strong>
+        <small>नीमच</small>
+      </span>
+    </a>
+
+    <nav class="nav__links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Our Work</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav__actions">
+      <a href="#donate" class="btn btn--donate"><span>♥</span> Donate Now</a>
+      <div class="lang" id="langSwitch">
+        <button class="lang__btn" id="langBtn">हिंदी <span class="caret">▾</span></button>
+        <ul class="lang__menu" id="langMenu">
+          <li data-lang="en">English</li>
+          <li data-lang="hi" class="is-active">हिंदी</li>
+          <li data-lang="mr">मराठी</li>
+          <li data-lang="gu">ગુજરાતી</li>
+        </ul>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+ <div class="hero__bg">
+    <video class="hero__bg-video" autoplay muted loop playsinline poster="assets/hero-bg.jpg">
+      <source src="assets/cow 2.mp4" type="video/mp4">
+    </video>
+    <div class="hero__bg-overlay"></div>
+    <div class="hero__particles" id="particles"></div>
+    <div class="hero__rays"></div>
+  </div>
+  <div class="container hero__inner">
+    <div class="hero__content" data-reveal>
+      <h1 class="hero__title">
+        गौ सेवा ही<br>
+        <span class="grad-text">मानव सेवा है</span>
+      </h1>
+      <p class="hero__desc">आइए, गौ माता की सेवा में योगदान दें और उनके जीवन को बेहतर बनाएं। हर छोटा प्रयास एक नई शुरुआत ला सकता है।</p>
+      <div class="hero__cta">
+        <a href="#donate" class="btn btn--primary btn--lg">गौ सेवा में सहयोग करें</a>
+        <a href="#about" class="btn btn--ghost btn--lg">हमारे बारे में जानें <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <svg class="hero__divider" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path class="hero__divider-path" d="M0,48 C240,90 480,0 720,24 C960,48 1200,90 1440,48 L1440,90 L0,90 Z"></path>
+  </svg>
+</section>
+
+<!-- ============ HERO STATS CARD ============
+     Sits between hero and about, negative margin pulls it up so it
+     overlaps the bottom edge of the hero section (premium NGO style). -->
+<div class="container stats-wrap">
+  <div class="stats-card" data-reveal>
+    <div class="stat">
+      <div class="stat__icon">🐄</div>
+      <div class="stat__num" data-count="500">0</div>
+      <div class="stat__label">गौ माता की सेवा</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">🏆</div>
+      <div class="stat__num" data-count="6">0</div>
+      <div class="stat__label">सालों का अनुभव</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">🤝</div>
+      <div class="stat__num" data-count="45">0</div>
+      <div class="stat__label">सेवक हमारे साथ</div>
+    </div>
+    <div class="stat">
+      <div class="stat__icon">🛡️</div>
+      <div class="stat__num" data-count="100">0</div>
+      <div class="stat__label">गौ माता सुरक्षित</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="container about__grid">
+    <div class="about__text" data-reveal>
+      <span class="eyebrow">हमारे बारे में</span>
+      <h2 class="section-title">गौ सेवा समिति नीमच</h2>
+      <p class="section-desc">हमारा उद्देश्य गौ माता की सेवा, संरक्षण और उनके स्वास्थ्य की देखभाल करना है। हम नीमच में बेसहारा, बीमार, घायल और विकलांग गौवंश की सेवा-उपचार के लिए दिन-रात कार्यरत हैं, जहाँ हर गौ माता को सम्मान और देखभाल मिलती है।</p>
+      <ul class="check-list">
+        <li><span class="check">✓</span> 24/7 देखभाल, रेस्क्यू और उपचार सेवा</li>
+        <li><span class="check">✓</span> संचालित उपचार शाला — 70+ गोवंश निरंतर उपचाराधीन</li>
+        <li><span class="check">✓</span> रोज़ाना जल सेवा वाहन द्वारा पेयजल व्यवस्था</li>
+      </ul>
+      <a href="#news" class="btn btn--outline">हमारे बारे में और पढ़ें</a>
+    </div>
+
+    <div class="about__media" data-reveal>
+      <div class="media-card">
+        <div class="media-card__video">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="auto"
+            poster="assets/video-poster.jpg"
+          >
+            <source src="./assets/vidssave.com Full video of Go Seva Nandi Dham Neemuch how we work _ 1080P.mp4" type="video/mp4">
+            आपका ब्राउज़र वीडियो चलाने में सक्षम नहीं है।
+          </video>
+        </div>
+      </div>
+
+  <div class="floating-card">
+    <div class="floating-card__icon">♥</div>
+    <p>गौ सेवा में आपका योगदान अनमोल है</p>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ SERVICES (auto-scrolling carousel, no arrows) ============ -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow eyebrow--center">हमारे कार्य</span>
+      <h2 class="section-title section-title--center">हम क्या करते हैं</h2>
+    </div>
+
+    <div class="carousel">
+      <div class="carousel__track" id="carouselTrack" tabindex="0" role="region" aria-label="हमारी सेवाओं की सूची — auto-scrolling, दायाँ/बायाँ तीर से नियंत्रित करें">
+
+        <article class="service-card" data-reveal>
+          <div class="service-card__img placeholder-img">
+            <img src="assets/Food.jpeg" alt="भोजन और पोषण" loading="lazy" />
+          </div>
+          <h3>भोजन और पोषण</h3>
+          <p>हम पौष्टिक और शुद्ध भोजन-चारे की व्यवस्था सुनिश्चित करते हैं।</p>
+          <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+        </article>
+
+
+        <article class="service-card" data-reveal>
+          <div class="service-card__img placeholder-img">
+            <img src="assets/8.png" alt="गौ माता की देखभाल" loading="lazy" />
+          </div>
+          <h3>गौ माता की देखभाल</h3>
+          <p>हम गौ माता की दैनिक देखभाल और स्वास्थ्य का विशेष ध्यान रखते हैं।</p>
+          <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+        </article>
+
+        <article class="service-card" data-reveal>
+          <div class="service-card__img placeholder-img">
+            <img src="assets/Medical checckup.jpeg" alt="चिकित्सा सेवा" loading="lazy" />
+          </div>
+          <h3>चिकित्सा सेवा</h3>
+          <p>बीमार, घायल और विकलांग गोवंश के लिए निरंतर उपचार व स्वास्थ्य जांच।</p>
+          <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+        </article>
+
+        <article class="service-card" data-reveal>
+          <div class="service-card__img placeholder-img">
+            <img src="assets/Water.jpeg" alt="जल सेवा वाहन" loading="lazy" />
+          </div>
+          <h3>जल सेवा वाहन</h3>
+          <p>भीषण गर्मी में गौवंश व बेज़ुबान जीवों के लिए रोज़ 2000 लीटर क्षमता का जल सेवा वाहन शहरभर में पेयजल पहुँचाता है।</p>
+          <a href="#news" class="link-arrow">और जानें <span>→</span></a>
+        </article>
+
+        <article class="service-card" data-reveal>
+          <div class="service-card__img placeholder-img">
+            <img src="assets/Food 2.jpeg" alt="गौ संरक्षण" loading="lazy" />
+          </div>
+          <h3>गौ संरक्षण</h3>
+          <p>हम बेसहारा, दुर्घटनाग्रस्त और पीड़ित गौ माता का रेस्क्यू व संरक्षण करते हैं।</p>
+          <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+        </article>
+
+        <!-- सेवा 1 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/7.jpeg" alt="गौ रेस्क्यू सेवा" loading="lazy" />
+        </div>
+        <h3>गौ रेस्क्यू सेवा</h3>
+        <p>दुर्घटनाग्रस्त, बीमार एवं बेसहारा गौवंश का त्वरित रेस्क्यू कर सुरक्षित स्थान पर उपचार किया जाता है।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 2 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/Ambulance.jpeg" alt="गौ एम्बुलेंस सेवा" loading="lazy" />
+        </div>
+        <h3>गौ एम्बुलेंस सेवा</h3>
+        <p>घायल एवं गंभीर अवस्था में गौ माता को शीघ्र अस्पताल एवं गौशाला तक पहुँचाने की सुविधा।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 3 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/Food 3.jpeg" alt="हरा चारा वितरण" loading="lazy" />
+        </div>
+        <h3>हरा चारा वितरण</h3>
+        <p>गौवंश को पौष्टिक हरा चारा एवं संतुलित आहार उपलब्ध कराया जाता है।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 4 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/Water.jpeg" alt="जल सेवा" loading="lazy" />
+        </div>
+        <h3>पेयजल सेवा</h3>
+        <p>गर्मी के मौसम में शहरभर के गौवंश एवं अन्य बेज़ुबान पशुओं तक स्वच्छ पेयजल पहुँचाया जाता है।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 5 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/Food 2.jpeg" alt="आश्रय सेवा" loading="lazy" />
+        </div>
+        <h3>गौ आश्रय</h3>
+        <p>बेसहारा एवं वृद्ध गौवंश के लिए सुरक्षित आश्रय, भोजन और नियमित देखभाल की व्यवस्था।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+       <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/newspaper.jpeg" alt="जन जागरूकता अभियान" loading="lazy" />
+        </div>
+        <h3>जन जागरूकता अभियान</h3>
+        <p>गौ संरक्षण एवं पशु सेवा के प्रति समाज में जागरूकता फैलाने हेतु अभियान एवं कार्यक्रम आयोजित किए जाते हैं।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 6 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/Medical checckup.jpeg" alt="दवा वितरण" loading="lazy" />
+        </div>
+        <h3>दवा एवं उपचार</h3>
+        <p>घायल एवं बीमार गोवंश को समय पर दवाइयाँ, उपचार और आवश्यक चिकित्सा उपलब्ध कराई जाती है।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 9 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/treatment1.jpeg" alt="आपातकालीन सहायता" loading="lazy" />
+        </div>
+        <h3>24×7 आपात सहायता</h3>
+        <p>घायल या संकटग्रस्त गौवंश की सूचना मिलते ही हमारी टीम तुरंत सहायता के लिए पहुँचती है।</p>
+        <a href="#gallery" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+      <!-- सेवा 10 -->
+      <article class="service-card" data-reveal>
+        <div class="service-card__img placeholder-img">
+          <img src="assets/poster2.png" alt="दान एवं सहयोग" loading="lazy" />
+        </div>
+        <h3>दान एवं सहयोग</h3>
+        <p>गौ सेवा के लिए अन्न, चारा, दवाइयाँ एवं आर्थिक सहयोग स्वीकार कर सेवा कार्यों को आगे बढ़ाया जाता है।</p>
+        <a href="#donate" class="link-arrow">और जानें <span>→</span></a>
+      </article>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+<!-- ============ DONATION ============ -->
+<section class="donate" id="donate">
+  <div class="donate__bg placeholder-img placeholder-img--donate">
+    <img src="assets/qr1.jpeg" alt="गौ सेवा में सहयोग" loading="lazy" />
+  </div>
+  <div class="donate__overlay"></div>
+  <div class="container donate__inner" data-reveal>
+    <div class="donate__text">
+      <h2>गौ सेवा में आपका सहयोग</h2>
+      <p>आपका छोटा सा योगदान गौ माता के जीवन में बड़ा बदलाव ला सकता है।</p>
+
+      <div class="bank-card">
+        <p class="bank-card__title">बैंक ट्रांसफर विवरण</p>
+        <dl class="bank-card__list">
+          <div><dt>Account Name</dt><dd>Gau Sewa Samiti Neemuch</dd></div>
+          <div><dt>Bank</dt><dd>Indian Bank</dd></div>
+          <div><dt>Account No.</dt><dd>7225249123</dd></div>
+          <div><dt>IFSC Code</dt><dd>IDIB000N119</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="donate__form">
+      <div class="amount-grid">
+        <button class="amount-btn">₹501</button>
+        <button class="amount-btn">₹1100</button>
+        <button class="amount-btn is-active">₹2100</button>
+        <button class="amount-btn">₹5100</button>
+        <button class="amount-btn amount-btn--other">अन्य राशि</button>
+      </div>
+      <div class="donate__progress">
+        <div class="donate__progress-bar"><span style="width:64%"></span></div>
+        <div class="donate__progress-meta"><span>₹6,40,000 जुटाए गए</span><span>लक्ष्य ₹10,00,000</span></div>
+      </div>
+      <a href="upi://pay?pa=gausewasamitineemuch@indianbk&pn=Gau%20Sewa%20Samiti%20Neemuch&am=2100&cu=INR"
+        class="btn btn--phonepe btn--block" id="phonepeBtn">
+        <span>📱</span> PhonePe से सीधा भुगतान करें
+      </a>
+      <a href="tel:+917909807974" class="btn btn--primary btn--block">अभी सहयोग करें ♥</a>
+    </div>
+
+    <div class="donate__qr">
+      <span class="donate__qr-sparkle donate__qr-sparkle--1" aria-hidden="true">✦</span>
+      <span class="donate__qr-sparkle donate__qr-sparkle--2" aria-hidden="true">✦</span>
+      <span class="donate__qr-dot donate__qr-dot--1" aria-hidden="true"></span>
+      <span class="donate__qr-dot donate__qr-dot--2" aria-hidden="true"></span>
+
+      <span class="donate__qr-badge">🙏 गौ सेवा हेतु सहयोग</span>
+      <h3 class="donate__qr-title">Support Gau Seva</h3>
+      <p class="donate__qr-subtitle">Scan the QR using PhonePe, Google Pay or any UPI App</p>
+
+      <div class="donate__qr-frame">
+        <img src="./assets/qr1.jpeg" alt="गूगल पे / फोन पे स्कैन कोड — गौ सेवा समिति नीमच" loading="lazy" />
+      </div>
+      <p class="donate__qr-label">स्कैन करके सीधा दान करें</p>
+
+      <ul class="donate__qr-trust">
+        <li><span class="donate__qr-check">✓</span>Secure UPI Payment</li>
+        <li><span class="donate__qr-check">✓</span>Direct to Gau Seva Samiti Neemuch</li>
+        <li><span class="donate__qr-check">✓</span>No Third Party</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow eyebrow--center">हमारा वास्तविक कार्य</span>
+      <h2 class="section-title section-title--center">गैलरी</h2>
+    </div>
+    <div class="gallery__grid" data-reveal>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-1.jpg">
+        <img src="assets/1.jpeg" alt="सड़क किनारे बछड़े का रेस्क्यू" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-2.jpg">
+        <img src="assets/2.jpeg" alt="टीम द्वारा गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-3.jpg">
+        <img src="assets/Food 2.jpeg" alt="जल सेवा वाहन से पेयजल सेवा" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-4.jpg">
+        <img src="assets/3.jpeg" alt="शाम को फील्ड में गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-5.jpg">
+        <img src="assets/Medical checckup.jpeg" alt="उपचार शाला में गोवंश की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-6.jpg">
+        <img src="assets/4.jpeg" alt="बछड़े की स्वास्थ्य जांच" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-7.jpg">
+        <img src="assets/5.jpeg" alt="दिन में सड़क पर गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
+        <img src="assets/6.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
+        <img src="./assets/7.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
+        <img src="./assets/8.png" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-6.jpg">
+        <img src="assets/pickup rescue.jpeg" alt="बछड़े की स्वास्थ्य जांच" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-7.jpg">
+        <img src="assets/poster1.png" alt="दिन में सड़क पर गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
+        <img src="assets/Food 3.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
+        <img src="./assets/Ambulance.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
+        <img src="./assets/10.jpeg" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-label="सूचना">
+  <div class="marquee__track">
+    <span>🐄 500+ गौ माता की सेवा &nbsp;•&nbsp; 🚰 रोज़ 2000 लीटर जल सेवा वाहन अभियान &nbsp;•&nbsp; 🙏 6 वर्षों से निरंतर सेवारत &nbsp;•&nbsp; ❤ आज ही सहयोग करें</span>
+    <span aria-hidden="true">🐄 500+ गौ माता की सेवा &nbsp;•&nbsp; 🚰 रोज़ 2000 लीटर जल सेवा वाहन अभियान &nbsp;•&nbsp; 🙏 6 वर्षों से निरंतर सेवारत &nbsp;•&nbsp; ❤ आज ही सहयोग करें</span>
+  </div>
+</div>
+
+<!-- ============ NEWS ============ -->
+<section class="news" id="news">
+  <div class="container news__grid">
+    <div class="news__media" data-reveal>
+      <img src="assets/newspaper.jpeg" alt="दैनिक भास्कर, नीमच — 11 मई 2026 की खबर" loading="lazy" />
+    </div>
+    <div class="news__text" data-reveal>
+      <span class="eyebrow">मीडिया में हम</span>
+      <h2 class="section-title">दैनिक भास्कर में गौ सेवा समिति की पहल</h2>
+      <p class="section-desc">11 मई 2026 के दैनिक भास्कर, नीमच संस्करण में हमारी टीम के "जल सेवा वाहन" अभियान को कवर किया गया। भीषण गर्मी में गौवंश और बेज़ुबान जीवों की प्यास बुझाने के लिए बीते 6 वर्षों से टीम शहरभर में 2000 लीटर क्षमता की टंकियों से पेयजल पहुँचा रही है, और अब तक शहर के 25 से अधिक स्थानों पर यह सेवा दी जा चुकी है।</p>
+      <a href="https://wa.me/917909807974" target="_blank" rel="noopener" class="btn btn--outline">अभियान के बारे में जानें</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightboxClose">✕</button>
+  <div class="lightbox__stage placeholder-img" id="lightboxStage"></div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="contact">
+  <div class="container footer__grid">
+    <div class="footer__col">
+      <a href="#home" class="brand brand--footer">
+        <span class="brand__logo"><img src="/assets/logo.png" alt="गौ सेवा समिति नीमच लोगो" /></span>
+        <span class="brand__text">
+          <strong>गौ सेवा समिति नीमच</strong>
+        </span>
+      </a>
+      <p>गौ सेवा समिति नीमच का मुख्य उद्देश्य गौ माता की सेवा, संरक्षण और उनके कल्याण के लिए समर्पित रहना है।</p>
+      <div class="socials">
+        <a href="https://www.facebook.com/Gausewadal.nmh" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href="https://instagram.com/gausewadalnmh" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+        <a href="https://youtube.com/@parthjoshi-animalrescue4344" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+        <a href="https://wa.me/917909807974" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+      </div>
+    </div>
+
+    <div class="footer__col">
+      <h4>त्वरित लिंक</h4>
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#services">Our Work</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <div class="footer__col">
+      <h4>संपर्क जानकारी</h4>
+      <p class="contact-line"><span class="contact-line__icon">📍</span><span class="contact-line__text">9, Patel Plaza, Tagore Marg, Neemuch, Madhya Pradesh 458441</span></p>
+      <p class="contact-line"><span class="contact-line__icon">📞</span><span class="contact-line__text">+91 79098 07974 · +91 91095 17152</span></p>
+      <p class="contact-line"><span class="contact-line__icon">✉</span><span class="contact-line__text">gausewadalnm@gmail.com</span></p>
+      <p class="contact-line"><span class="contact-line__icon">🕐</span><span class="contact-line__text">Open 24/7 · रजि. 07/24/01/17288/22</span></p>
+    </div>
+
+    <div class="footer__col">
+      <h4>हमारे साथ जुड़ें</h4>
+      <p>हमारे साथ जुड़ें और गौ सेवा की जानकारी पाएं।</p>
+      <form class="subscribe" id="subscribeForm">
+        <input type="email" placeholder="अपना ईमेल दर्ज करें" required />
+        <button type="submit">सब्सक्राइब करें</button>
+      </form>
+      <p class="subscribe__note" id="subscribeNote"></p>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <span>© 2024 गौ सेवा समिति नीमच | सभी अधिकार सुरक्षित</span>
+      <span>Made with ♥ for गौ सेवा</span>
+    </div>
+  </div>
+</footer>
+
+<a class="whatsapp-fab" href="https://wa.me/917909807974?text=%E0%A4%9C%E0%A4%AF%20%E0%A4%97%E0%A5%8C%20%E0%A4%AE%E0%A4%BE%E0%A4%A4%E0%A4%BE%2C%20%E0%A4%AE%E0%A5%81%E0%A4%9D%E0%A5%87%20%E0%A4%97%E0%A5%8C%20%E0%A4%B8%E0%A5%87%E0%A4%B5%E0%A4%BE%20%E0%A4%95%E0%A5%87%20%E0%A4%AC%E0%A4%BE%E0%A4%B0%E0%A5%87%20%E0%A4%AE%E0%A5%87%E0%A4%82%20%E0%A4%9C%E0%A4%BE%E0%A4%A8%E0%A4%95%E0%A4%BE%E0%A4%B0%E0%A5%80%20%E0%A4%9A%E0%A4%BE%E0%A4%B9%E0%A4%BF%E0%A4%8F।" target="_blank" rel="noopener" aria-label="WhatsApp पर संपर्क करें">
+  <svg viewBox="0 0 32 32" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M16.02 3C9.4 3 4 8.37 4 15c0 2.34.64 4.53 1.75 6.4L3 29l7.8-2.66A12.9 12.9 0 0 0 16.02 27C22.65 27 28 21.63 28 15S22.65 3 16.02 3Zm7.4 18.24c-.32.9-1.86 1.71-2.57 1.78-.66.07-1.5.1-2.42-.15-.56-.16-1.28-.4-2.2-.79-3.87-1.67-6.4-5.56-6.6-5.82-.19-.26-1.58-2.1-1.58-4 0-1.9 1-2.83 1.35-3.22.35-.39.77-.49 1.03-.49.26 0 .52 0 .74.01.24.01.56-.09.87.67.32.77 1.09 2.67 1.19 2.86.1.19.16.42.03.68-.13.26-.19.42-.38.65-.19.23-.4.51-.57.68-.19.19-.39.4-.17.78.23.39 1.02 1.7 2.2 2.76 1.51 1.36 2.79 1.78 3.18 1.98.39.19.61.16.84-.1.23-.26.97-1.14 1.23-1.53.26-.39.52-.32.87-.19.35.13 2.23 1.06 2.62 1.25.39.19.65.29.74.45.1.16.1.9-.22 1.8Z"/></svg>
+</a>
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
