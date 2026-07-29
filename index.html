@@ -416,6 +416,14 @@
       <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
         <img src="assets/6.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
       </div>
+    </div>
+
+    <!-- ============ GALLERY: "View More" collapsible extra images ============
+         Same .gallery__grid layout/spacing/hover/lightbox as above, just
+         wrapped in a height-animated container that's collapsed by default.
+         Toggled by script.js (#galleryMoreBtn / #galleryMore). -->
+    <div class="gallery__more" id="galleryMore">
+      <div class="gallery__grid gallery__grid--more" data-reveal>
       <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
         <img src="./assets/7.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
       </div>
@@ -437,6 +445,72 @@
       <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
         <img src="./assets/10.jpeg" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
       </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-5.jpg">
+        <img src="assets/a.jpeg" alt="उपचार शाला में गोवंश की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-6.jpg">
+        <img src="assets/b.jpeg" alt="बछड़े की स्वास्थ्य जांच" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-7.jpg">
+        <img src="assets/c.jpeg" alt="दिन में सड़क पर गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
+        <img src="assets/d.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
+        <img src="./assets/e.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
+        <img src="./assets/f.jpeg" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-6.jpg">
+        <img src="assets/g.jpeg" alt="बछड़े की स्वास्थ्य जांच" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-7.jpg">
+        <img src="assets/h.jpeg" alt="दिन में सड़क पर गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
+        <img src="assets/i.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
+        <img src="./assets/k.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
+        <img src="./assets/m.jpeg" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
+      </div>
+       <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-7.jpg">
+        <img src="assets/n.jpeg" alt="दिन में सड़क पर गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
+        <img src="assets/o.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
+        <img src="./assets/p.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
+        <img src="./assets/q.jpeg" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
+      </div>
+       <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-7.jpg">
+        <img src="assets/r.jpeg" alt="दिन में सड़क पर गोवंश उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-8.jpg">
+        <img src="assets/Ambukancee.jpeg" alt="बछड़े की देखभाल" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-9.jpg">
+        <img src="./assets/cows.jpeg" alt="गली में गोवंश का उपचार" loading="lazy" />
+      </div>
+      <div class="gallery__item placeholder-img" data-lightbox data-img="assets/gallery/gallery-10.jpg">
+        <img src="./assets/pickup rescue.jpeg" alt="टीम द्वारा गोवंश की जांच" loading="lazy" />
+      </div>
+
+      </div>
+    </div>
+
+    <div class="center-btn">
+      <button type="button" class="btn btn--outline gallery__toggle" id="galleryMoreBtn" aria-expanded="false" aria-controls="galleryMore">
+        <span class="gallery__toggle-text">और तस्वीरें देखें</span>
+        <span class="arrow">↓</span>
+      </button>
     </div>
   </div>
 </section>
@@ -459,6 +533,61 @@
       <h2 class="section-title">दैनिक भास्कर में गौ सेवा समिति की पहल</h2>
       <p class="section-desc">11 मई 2026 के दैनिक भास्कर, नीमच संस्करण में हमारी टीम के "जल सेवा वाहन" अभियान को कवर किया गया। भीषण गर्मी में गौवंश और बेज़ुबान जीवों की प्यास बुझाने के लिए बीते 6 वर्षों से टीम शहरभर में 2000 लीटर क्षमता की टंकियों से पेयजल पहुँचा रही है, और अब तक शहर के 25 से अधिक स्थानों पर यह सेवा दी जा चुकी है।</p>
       <a href="https://wa.me/917909807974" target="_blank" rel="noopener" class="btn btn--outline">अभियान के बारे में जानें</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEDIA COVERAGE (newspaper cuttings grid) ============
+     Reuses the existing gallery lightbox: any element with [data-lightbox]
+     + data-img is auto-wired by script.js, so no JS changes were needed
+     for the open/close/full-screen behaviour here.
+     Reuses the existing [data-reveal] scroll-fade, also already generic
+     in script.js — no JS changes needed for the entrance animation either.
+     Replace the assets/news/press-*.jpg paths below with the real
+     newspaper cutting files once they're added to the project. -->
+<section class="press-coverage" id="media-coverage">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow eyebrow--center">प्रेस में हमारा कार्य</span>
+      <h2 class="section-title section-title--center">समाचार पत्रों में</h2>
+    </div>
+    <div class="press-coverage__grid" data-reveal>
+      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/1.jpeg">
+        <div class="press-card__img placeholder-img">
+          <img src="assets/newspaper cuttings/1.jpeg" alt="2 घंटे की मशक्कत के बाद कुएं से सुरक्षित निकाली गाय" loading="lazy" />
+        </div>
+        <div class="press-card__caption">
+          <span>दैनिक भास्कर · 28 जुलाई</span>
+          <h3>2 घंटे की मशक्कत के बाद कुएं से सुरक्षित निकाली गाय</h3>
+        </div>
+      </div>
+      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/5.jpeg">
+        <div class="press-card__img placeholder-img">
+          <img src="assets/newspaper cuttings/5.jpeg" alt="नालों की जालियां बन रहीं गौवंश के लिए मौत का जाल" loading="lazy" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>नालों की जालियां बन रहीं गौवंश के लिए मौत का जाल</h3>
+        </div>
+      </div>
+      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/3.jpeg">
+        <div class="press-card__img placeholder-img">
+          <img src="assets/newspaper cuttings/2.jpeg" alt="रेलवे ट्रैक गौवंश और पशुओं के लिए बना जानलेवा, रेलिंग बनाने की मांग" loading="lazy" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्वदेश समाचार</span>
+          <h3>रेलवे ट्रैक गौवंश और पशुओं के लिए बना जानलेवा, रेलिंग बनाने की मांग</h3>
+        </div>
+      </div>
+      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/4.jpeg">
+        <div class="press-card__img placeholder-img">
+          <img src="assets/newspaper cuttings/4.jpeg" alt="इंदिरा नगर में गौ माता की जान बचाई, पेट से मृत बच्चे को ऑपरेशन कर निकाला" loading="lazy" />
+        </div>
+        <div class="press-card__caption">
+          <span>दैनिक भास्कर · 03 फरवरी</span>
+          <h3>इंदिरा नगर में गौ माता की जान बचाई, ऑपरेशन कर बचाई जान</h3>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -500,10 +629,10 @@
 
     <div class="footer__col">
       <h4>संपर्क जानकारी</h4>
-      <p class="contact-line"><span class="contact-line__icon">📍</span><span class="contact-line__text">9, Patel Plaza, Tagore Marg, Neemuch, Madhya Pradesh 458441</span></p>
-      <p class="contact-line"><span class="contact-line__icon">📞</span><span class="contact-line__text">+91 79098 07974 · +91 91095 17152</span></p>
-      <p class="contact-line"><span class="contact-line__icon">✉</span><span class="contact-line__text">gausewadalnm@gmail.com</span></p>
-      <p class="contact-line"><span class="contact-line__icon">🕐</span><span class="contact-line__text">Open 24/7 · रजि. 07/24/01/17288/22</span></p>
+      <p class="contact-line"><span class="contact-line__icon">📍</span><span class="contact-line__text">Gau Sewa Dham , Scheme No.9 , Near Panchwati Colony, Neemuch, Madhya Pradesh 458441</span></p>
+    <p class="contact-line"><span class="contact-line__icon">📞</span><span class="contact-line__text">+91 79098 07974 <br>  +91 91095 17152</span></p>
+      <p class="contact-line"><span class="contact-line__icon">✉</span><span class="contact-line__text">gausewadalnmh@gmail.com</span></p>
+      <p class="contact-line"><span class="contact-line__icon">🕐</span><span class="contact-line__text">Open 24/7 <br> Rej. 07/24/01/17288/22</span></p>
     </div>
 
     <div class="footer__col">

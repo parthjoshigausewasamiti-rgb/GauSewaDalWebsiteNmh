@@ -634,6 +634,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .news__text .section-title{ margin-bottom:16px; }
 
 /* ==========================================================================
+   PRESS COVERAGE — newspaper cuttings grid (reuses eyebrow/section-title,
+   .placeholder-img zoom pattern, [data-reveal] fade, and the gallery
+   lightbox via [data-lightbox] — no new JS needed for those behaviours)
+   ========================================================================== */
+.press-coverage{ padding:100px 0; background: var(--cream); }
+.press-coverage__grid{
+  display:grid; grid-template-columns: repeat(4,1fr); gap:26px;
+}
+.press-card{
+  background:#fff; border-radius: var(--radius-lg); overflow:hidden;
+  box-shadow: var(--shadow-sm); cursor:pointer;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.press-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.press-card__img{ position:relative; aspect-ratio: 3/4; overflow:hidden; }
+.press-card:hover .press-card__img img{ transform: scale(1.08); }
+.press-card__caption{ padding:16px 18px 20px; }
+.press-card__caption span{
+  display:block; font-size:11.5px; font-weight:700; letter-spacing:.03em;
+  color: var(--orange-dark); text-transform:uppercase; margin-bottom:6px;
+}
+.press-card__caption h3{
+  margin:0; font-size:14.5px; font-weight:700; line-height:1.45; color: var(--brown-900);
+}
+
+/* ==========================================================================
    GALLERY — image, hover zoom, shadow only (no overlay icon/button)
    ========================================================================== */
 .gallery{ padding:100px 0; background: var(--cream); }
@@ -647,6 +673,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 }
 .gallery__item:hover{ transform: translateY(-6px) scale(1.02); box-shadow: var(--shadow-lg); }
 .center-btn{ text-align:center; margin-top:38px; }
+
+/* ---- "View More" collapsible extra gallery images ----------------------
+   Collapsed by default (max-height:0). script.js toggles the .is-open
+   class and sets an inline max-height (measured from scrollHeight) so the
+   height transition is smooth regardless of content size; once fully open
+   it clears the inline max-height to 'none' so a window resize never clips
+   the content. Same grid/gap/hover/lightbox rules as the main grid above,
+   just with a top margin to preserve the existing 18px gallery gap when
+   the block expands. */
+.gallery__more{
+  max-height:0; overflow:hidden; opacity:0;
+  transition: max-height .6s var(--ease), opacity .5s ease;
+}
+.gallery__more.is-open{ opacity:1; }
+.gallery__more .gallery__grid--more{ margin-top:18px; }
+.gallery__toggle{ display:inline-flex; align-items:center; gap:8px; }
+.gallery__toggle .arrow{ transition: transform .3s var(--ease); }
+.gallery__toggle.is-open .arrow{ transform: rotate(180deg); }
 
 .lightbox{
   position:fixed; inset:0; z-index:10000; background: rgba(15,8,5,.92);
@@ -800,6 +844,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
   /* Tablet: proportional gap between CTA buttons and the overlapping stats card */
   .hero__inner{ padding-bottom: 160px; }
+
+  /* Tablet: 2 press-coverage cards per row */
+  .press-coverage__grid{ grid-template-columns: repeat(2,1fr); }
 }
 
 @media (max-width: 860px){
@@ -848,6 +895,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 
   /* Mobile: 1 service card per view */
   .service-card{ flex: 0 0 100%; min-width: 0; }
+
+  /* Mobile: 1 press-coverage card per row */
+  .press-coverage__grid{ grid-template-columns: 1fr; }
 }
 
 @media (max-width: 520px){
@@ -873,6 +923,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .gallery__grid{ grid-template-columns: repeat(2,1fr); }
 }
 
+@media (max-width: 768px){
+  .hero__inner{
+    padding-top: calc(var(--header-h) + 40px);
+  }
+}
 @media (max-width: 768px){
   .hero__inner{
     padding-top: calc(var(--header-h) + 40px);

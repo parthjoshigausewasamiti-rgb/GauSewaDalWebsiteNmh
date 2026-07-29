@@ -187,6 +187,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ---------- Gallery "View More" / "View Less" ----------
+     The extra images already sit in the DOM (inside #galleryMore, collapsed
+     via CSS max-height:0). This just measures the real content height and
+     animates to/from it, so the transition is smooth no matter how many
+     images are inside. Once fully open, the inline max-height is cleared
+     to 'none' so a later window resize (which can change row height on a
+     grid) never clips the content. Doesn't touch the main gallery grid,
+     its hover effects, or the lightbox — those keep working exactly as
+     before for both the first 8 images and the revealed ones. */
+  const galleryMore = document.getElementById('galleryMore');
+  const galleryMoreBtn = document.getElementById('galleryMoreBtn');
+  if (galleryMore && galleryMoreBtn) {
+    const toggleLabel = galleryMoreBtn.querySelector('.gallery__toggle-text');
+    let onTransitionEnd;
+
+    galleryMoreBtn.addEventListener('click', () => {
+      const isOpen = galleryMore.classList.contains('is-open');
+      galleryMore.removeEventListener('transitionend', onTransitionEnd);
+
+      if (isOpen) {
+        // Collapsing: fix the current pixel height first so the browser
+        // has a "from" value to animate down to 0 from.
+        galleryMore.style.maxHeight = galleryMore.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          galleryMore.style.maxHeight = '0px';
+        });
+        galleryMore.classList.remove('is-open');
+        galleryMoreBtn.classList.remove('is-open');
+        galleryMoreBtn.setAttribute('aria-expanded', 'false');
+        if (toggleLabel) toggleLabel.textContent = 'और तस्वीरें देखें';
+      } else {
+        galleryMore.classList.add('is-open');
+        galleryMore.style.maxHeight = galleryMore.scrollHeight + 'px';
+        galleryMoreBtn.classList.add('is-open');
+        galleryMoreBtn.setAttribute('aria-expanded', 'true');
+        if (toggleLabel) toggleLabel.textContent = 'कम तस्वीरें देखें';
+
+        onTransitionEnd = (e) => {
+          if (e.propertyName === 'max-height' && galleryMore.classList.contains('is-open')) {
+            galleryMore.style.maxHeight = 'none';
+          }
+        };
+        galleryMore.addEventListener('transitionend', onTransitionEnd);
+
+        // Keep the button in view; no jarring jump, just a gentle nudge
+        // so the user can see the new images appear.
+        requestAnimationFrame(() => {
+          galleryMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      }
+    });
+  }
+
   /* ---------- Gallery lightbox ---------- */
   const lightbox = document.getElementById('lightbox');
   const lightboxStage = document.getElementById('lightboxStage');
