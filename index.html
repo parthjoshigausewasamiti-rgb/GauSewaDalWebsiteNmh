@@ -537,60 +537,195 @@
   </div>
 </section>
 
-<!-- ============ MEDIA COVERAGE (newspaper cuttings grid) ============
-     Reuses the existing gallery lightbox: any element with [data-lightbox]
-     + data-img is auto-wired by script.js, so no JS changes were needed
-     for the open/close/full-screen behaviour here.
-     Reuses the existing [data-reveal] scroll-fade, also already generic
-     in script.js — no JS changes needed for the entrance animation either.
-     Replace the assets/news/press-*.jpg paths below with the real
-     newspaper cutting files once they're added to the project. -->
+<!-- ============ MEDIA COVERAGE — carousel + "View More" modal ============
+     #pressModalGrid is the single master list of every cutting. script.js
+     clones these into the carousel automatically, so a new cutting is
+     only ever added in ONE place: inside #pressModalGrid below. -->
 <section class="press-coverage" id="media-coverage">
   <div class="container">
     <div class="section-head" data-reveal>
       <span class="eyebrow eyebrow--center">प्रेस में हमारा कार्य</span>
       <h2 class="section-title section-title--center">समाचार पत्रों में</h2>
     </div>
-    <div class="press-coverage__grid" data-reveal>
-      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/1.jpeg">
-        <div class="press-card__img placeholder-img">
-          <img src="assets/newspaper cuttings/1.jpeg" alt="2 घंटे की मशक्कत के बाद कुएं से सुरक्षित निकाली गाय" loading="lazy" />
-        </div>
-        <div class="press-card__caption">
-          <span>दैनिक भास्कर · 28 जुलाई</span>
-          <h3>2 घंटे की मशक्कत के बाद कुएं से सुरक्षित निकाली गाय</h3>
-        </div>
+
+    <div class="press-carousel" data-reveal>
+      <div class="press-carousel__viewport">
+        <div class="press-carousel__track" id="pressCarouselTrack" tabindex="0" role="region" aria-roledescription="carousel" aria-label="समाचार पत्र कैरोसेल — स्वतः चलने वाला"></div>
       </div>
-      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/5.jpeg">
-        <div class="press-card__img placeholder-img">
-          <img src="assets/newspaper cuttings/5.jpeg" alt="नालों की जालियां बन रहीं गौवंश के लिए मौत का जाल" loading="lazy" />
-        </div>
-        <div class="press-card__caption">
-          <span>स्थानीय समाचार पत्र</span>
-          <h3>नालों की जालियां बन रहीं गौवंश के लिए मौत का जाल</h3>
-        </div>
-      </div>
-      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/3.jpeg">
-        <div class="press-card__img placeholder-img">
-          <img src="assets/newspaper cuttings/2.jpeg" alt="रेलवे ट्रैक गौवंश और पशुओं के लिए बना जानलेवा, रेलिंग बनाने की मांग" loading="lazy" />
-        </div>
-        <div class="press-card__caption">
-          <span>स्वदेश समाचार</span>
-          <h3>रेलवे ट्रैक गौवंश और पशुओं के लिए बना जानलेवा, रेलिंग बनाने की मांग</h3>
-        </div>
-      </div>
-      <div class="press-card" data-lightbox data-img="assets/newspaper cuttings/3.jpeg">
-        <div class="press-card__img placeholder-img">
-          <img src="assets/newspaper cuttings/3.jpeg" alt="इंदिरा नगर में गौ माता की जान बचाई, पेट से मृत बच्चे को ऑपरेशन कर निकाला" loading="lazy" />
-        </div>
-        <div class="press-card__caption">
-          <span>दैनिक भास्कर · 03 फरवरी</span>
-          <h3>इंदिरा नगर में गौ माता की जान बचाई, ऑपरेशन कर बचाई जान</h3>
-        </div>
-      </div>
+    </div>
+    <div class="press-carousel__dots" id="pressCarouselDots" role="tablist" aria-label="समाचार स्लाइड चुनें"></div>
+
+    <div class="center-btn">
+      <button class="btn btn--outline" id="pressViewMoreBtn">और समाचार देखें ↓</button>
     </div>
   </div>
 </section>
+
+<!-- ============ PRESS MODAL — every cutting, in a grid ============ -->
+<div class="press-modal" id="pressModal" role="dialog" aria-modal="true" aria-label="सभी समाचार पत्र">
+  <div class="press-modal__panel">
+    <button class="press-modal__close" id="pressModalClose" aria-label="बंद करें">✕</button>
+    <h3 class="press-modal__title">सभी समाचार पत्र</h3>
+    <div class="press-modal__grid" id="pressModalGrid">
+
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news1.jpg" alt="2 दिन तक नाले में फंसी रही गाय , को गौ सेवा दल ने नपा की मदद से रेस्क्यू कर बाहर निकाला" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>दैनिक भास्कर</span>
+          <h3>2 दिन तक नाले में फंसी रही गाय , को गौ सेवा दल ने नपा की मदद से रेस्क्यू कर बाहर निकाला</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news2.jpg" alt="इंदिरा नगर में गौ माता की जान बचाई,पेट से मृत बच्चे को ऑपरेशन पर निकाला" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>इंदिरा नगर में गौ माता की जान बचाई,पेट से मृत बच्चे को ऑपरेशन पर निकाला</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news3.jpg" alt="ट्रेन की टक्कर से दो गायों की मौत , एक हादसे में बुरी तरह जख्मी हुई गाय" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्वदेश समाचार</span>
+          <h3>ट्रेन की टक्कर से दो गायों की मौत , एक हादसे में बुरी तरह जख्मी हुई गाय</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news4.jpg" alt="रात का अंधेरा और तेज रफ्तार ट्रैक्टर ने शहर के शोरूम चौराहे पर सड़क पर बैठे बछड़े को मारी टक्कर उपचार जारी" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>दैनिक भास्कर</span>
+          <h3>रात का अंधेरा और तेज रफ्तार ट्रैक्टर ने शहर के शोरूम चौराहे पर सड़क पर बैठे बछड़े को मारी टक्कर उपचार जारी</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news5.jpg" alt="शहर में मिल रहे लम्पी वायरस के संदिग्ध पशु" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>शहर में मिल रहे लम्पी वायरस के संदिग्ध पशु</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n6.jpg" alt="सांड ने किया कीटनाशक का सेवन , उपचार के दौरान तोड़ा दम" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>सांड ने किया कीटनाशक का सेवन , उपचार के दौरान तोड़ा दम</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news7.jpg" alt="2 दिन तक हुआ परेशान , तीसरे दिन गौ सेवा दल ने 2 घंटे की मशक्कत के बाद पकड़ा" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>2 दिन तक हुआ परेशान , तीसरे दिन गौ सेवा दल ने 2 घंटे की मशक्कत के बाद पकड़ा</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/news8.jpg" alt="उपचार के साथ-साथ घायल गायों को बरसात से बचाने छत भी मुहैया कराई" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>उपचार के साथ-साथ घायल गायों को बरसात से बचाने छत भी मुहैया कराई</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n1.jpg" alt="गौ सेवा समिति द्वारा कलेक्टर मयंक अग्रवाल का किया सम्मान" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>गौ सेवा समिति द्वारा कलेक्टर मयंक अग्रवाल का किया सम्मान</h3>
+        </div>
+      </div>
+      <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n2.jpg" alt="नालियों की जालियां बन रही गोवंश के लिए मौत का जाल" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>नालियों की जालियां बन रही गोवंश के लिए मौत का जाल</h3>
+        </div>
+      </div>
+       <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n3.jpg" alt="2 घंटे की मशक्कत के बाद कुएं से सुरक्षित निकल गाय" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>2 घंटे की मशक्कत के बाद कुएं से सुरक्षित निकल गाय</h3>
+        </div>
+      </div>
+       <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n4.jpg" alt="रेलवे ट्रैक गोवंश और पशुओं के लिए बना जानलेवा , रेलिंग बनाने की मांग" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>रेलवे ट्रैक गोवंश और पशुओं के लिए बना जानलेवा , रेलिंग बनाने की मांग</h3>
+        </div>
+      </div>
+       <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n5.jpg" alt="हमदर्द बने गौ सेवा दल के सदस्य एक घंटे की मशक्कत के बाद गाय को निकाल बाहर" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>हमदर्द बने गौ सेवा दल के सदस्य एक घंटे की मशक्कत के बाद गाय को निकाल बाहर</h3>
+        </div>
+      </div>
+       <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n7.jpg" alt="6 साल में 6000 से अधिक बीमार और घायल गायों का उपचार कर बचाई जान" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र</span>
+          <h3>6 साल में 6000 से अधिक बीमार और घायल गायों का उपचार कर बचाई जान</h3>
+        </div>
+      </div>
+       <div class="press-card" data-press-item tabindex="0" role="button" aria-label="समाचार बड़ा करके देखें">
+        <div class="press-card__img">
+          <img src="assets/newspaper cuttings/n8.jpg" alt="प्रेरणादायक कार्य पर चुनिंदा चेहरों का किया सम्मान" loading="lazy" decoding="async" />
+        </div>
+        <div class="press-card__caption">
+          <span>स्थानीय समाचार पत्र </span>
+          <h3>प्रेरणादायक कार्य पर चुनिंदा चेहरों का किया सम्मान</h3>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<!-- ============ NEWSPAPER VIEWER (independent from gallery lightbox) ============ -->
+<div class="press-viewer" id="pressViewer" role="dialog" aria-modal="true" aria-label="समाचार पत्र दृश्यक">
+  <div class="press-viewer__toolbar">
+    <button class="press-viewer__btn" id="pressZoomOut" aria-label="ज़ूम आउट">−</button>
+    <button class="press-viewer__btn" id="pressZoomReset" aria-label="ज़ूम रीसेट">100%</button>
+    <button class="press-viewer__btn" id="pressZoomIn" aria-label="ज़ूम इन">+</button>
+  </div>
+  <button class="press-viewer__close" id="pressViewerClose" aria-label="बंद करें">✕</button>
+  <button class="press-viewer__nav press-viewer__nav--prev" id="pressPrev" aria-label="पिछला समाचार">←</button>
+  <div class="press-viewer__stage" id="pressViewerStage">
+    <div class="press-viewer__zoomwrap" id="pressZoomWrap">
+      <img src="" alt="" id="pressViewerImg" draggable="false" />
+    </div>
+  </div>
+  <button class="press-viewer__nav press-viewer__nav--next" id="pressNext" aria-label="अगला समाचार">→</button>
+  <div class="press-viewer__counter" id="pressCounter"></div>
+</div>
 
 <!-- ============ LIGHTBOX ============ -->
 <div class="lightbox" id="lightbox">

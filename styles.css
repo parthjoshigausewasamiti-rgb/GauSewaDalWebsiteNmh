@@ -634,23 +634,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
 .news__text .section-title{ margin-bottom:16px; }
 
 /* ==========================================================================
-   PRESS COVERAGE — newspaper cuttings grid (reuses eyebrow/section-title,
-   .placeholder-img zoom pattern, [data-reveal] fade, and the gallery
-   lightbox via [data-lightbox] — no new JS needed for those behaviours)
+   PRESS COVERAGE — equal-size carousel cards + "View More" modal grid
    ========================================================================== */
 .press-coverage{ padding:100px 0; background: var(--cream); }
-.press-coverage__grid{
-  display:grid; grid-template-columns: repeat(4,1fr); gap:26px;
-}
+
 .press-card{
   background:#fff; border-radius: var(--radius-lg); overflow:hidden;
   box-shadow: var(--shadow-sm); cursor:pointer;
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  transition: transform .35s var(--ease), box-shadow .35s var(--ease);
+  display:flex; flex-direction:column; height:100%;
 }
-.press-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-lg); }
-.press-card__img{ position:relative; aspect-ratio: 3/4; overflow:hidden; }
-.press-card:hover .press-card__img img{ transform: scale(1.08); }
-.press-card__caption{ padding:16px 18px 20px; }
+.press-card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.press-card__img{
+  aspect-ratio: 1/1; overflow:hidden; background: var(--cream-soft);
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.press-card__img img{
+  width:100%; height:100%; object-fit:contain;
+  transition: transform .35s var(--ease);
+}
+.press-card:hover .press-card__img img{ transform: scale(1.04); }
+.press-card__caption{ padding:12px 18px 16px; margin-top:0; }
 .press-card__caption span{
   display:block; font-size:11.5px; font-weight:700; letter-spacing:.03em;
   color: var(--orange-dark); text-transform:uppercase; margin-bottom:6px;
@@ -659,6 +663,77 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   margin:0; font-size:14.5px; font-weight:700; line-height:1.45; color: var(--brown-900);
 }
 
+/* ---- Carousel (auto-scrolling, transform-based, drag + swipe, no arrows) ---- */
+.press-carousel{ position:relative; }
+.press-carousel__viewport{ overflow:hidden; }
+.press-carousel__track{
+  display:flex; gap:26px; outline:none; cursor:grab;
+  touch-action:pan-y; -webkit-user-select:none; user-select:none;
+  transition: transform .6s cubic-bezier(.22,1,.36,1);
+  will-change: transform;
+}
+.press-carousel__track:active{ cursor:grabbing; }
+.press-carousel__track.is-dragging{ transition:none; cursor:grabbing; }
+.press-carousel__track.is-instant{ transition:none; }
+.press-carousel__track:focus-visible{
+  outline:2px solid var(--orange-dark); outline-offset:6px; border-radius:8px;
+}
+.press-carousel__track .press-card{
+  scroll-snap-align:start; min-width:0;
+  flex:0 0 calc((100% - 3*26px)/4);
+}
+@media (max-width:1280px){ .press-carousel__track .press-card{ flex:0 0 calc((100% - 2*26px)/3); } }
+@media (max-width:1024px){ .press-carousel__track .press-card{ flex:0 0 calc((100% - 1*26px)/2); } }
+@media (max-width:640px){  .press-carousel__track .press-card{ flex:0 0 100%; } }
+
+/* Carousel-only caption refinements — scoped under .press-carousel__track so
+   #pressModalGrid ("View More" modal) captions are never affected. */
+.press-carousel__track .press-card__caption h3{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
+  overflow:hidden; text-overflow:ellipsis; min-height:calc(1.45em * 2);
+}
+.press-carousel__track .press-card__caption span{
+  display:flex; flex-direction:column; gap:3px; margin-bottom:6px;
+}
+.press-carousel__track .press-card__caption span > span{
+  display:block; font-size:11.5px; font-weight:700; letter-spacing:.02em;
+  color: var(--orange-dark); text-transform:none;
+}
+
+.press-carousel__dots{ display:flex; justify-content:center; gap:8px; margin-top:24px; }
+.press-carousel__dot{
+  width:9px; height:9px; border-radius:50%; background: rgba(43,24,16,.18);
+  border:none; cursor:pointer; padding:0; transition: background .2s ease, transform .2s ease;
+}
+.press-carousel__dot.is-active{ background: var(--orange-dark); transform:scale(1.3); }
+
+@media (prefers-reduced-motion: reduce){
+  .press-carousel__track{ transition:none !important; }
+}
+
+/* ---- "View More" modal ---- */
+.press-modal{
+  position:fixed; inset:0; z-index:10002; background: rgba(15,8,5,.6);
+  display:flex; align-items:center; justify-content:center; padding:30px;
+  opacity:0; visibility:hidden; transition: opacity .3s ease, visibility .3s ease;
+}
+.press-modal.is-open{ opacity:1; visibility:visible; }
+.press-modal__panel{
+  background: var(--cream); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+  width:min(1100px,100%); max-height:85vh; overflow-y:auto; padding:34px;
+  position:relative; transform: translateY(16px); transition: transform .3s ease;
+}
+.press-modal.is-open .press-modal__panel{ transform:translateY(0); }
+.press-modal__title{ margin:0 0 22px; font-size:22px; font-weight:800; color:var(--brown-900); text-align:center; }
+.press-modal__close{
+  position:absolute; top:18px; right:18px; background: var(--cream-soft); border:none;
+  width:40px; height:40px; border-radius:50%; font-size:16px; cursor:pointer;
+  color: var(--brown-800); transition: background .2s ease, color .2s ease;
+}
+.press-modal__close:hover{ background: var(--orange-light); color:#fff; }
+.press-modal__grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:22px; }
+@media (max-width:1024px){ .press-modal__grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width:640px){ .press-modal__grid{ grid-template-columns: 1fr; } .press-modal__panel{ padding:22px; } }
 /* ==========================================================================
    GALLERY — image, hover zoom, shadow only (no overlay icon/button)
    ========================================================================== */
@@ -846,7 +921,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .hero__inner{ padding-bottom: 160px; }
 
   /* Tablet: 2 press-coverage cards per row */
-  .press-coverage__grid{ grid-template-columns: repeat(2,1fr); }
+  /* Tablet: 2 press-coverage columns */
+  
 }
 
 @media (max-width: 860px){
@@ -897,7 +973,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .service-card{ flex: 0 0 100%; min-width: 0; }
 
   /* Mobile: 1 press-coverage card per row */
-  .press-coverage__grid{ grid-template-columns: 1fr; }
+  /* Mobile: 1 press-coverage column */
 }
 
 @media (max-width: 520px){
@@ -932,4 +1008,100 @@ a:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-vis
   .hero__inner{
     padding-top: calc(var(--header-h) + 40px);
   }
+}
+
+/* ==========================================================================
+   PRESS COVERAGE — card redesign (object-fit:contain, equal height,
+   handles any newspaper aspect ratio without cropping). Overrides only
+   the rules needed; everything else in this file (gallery, hero, navbar,
+   colors, fonts, spacing elsewhere) is untouched.
+   ========================================================================== */
+/* Tablet / mobile column counts are already handled by the existing
+   1024px (2-col) and 640px (1-col) rules above — untouched. */
+
+/* ---- Press "View More" collapsible section (independent of #galleryMore) ---- */
+/* ==========================================================================
+   NEWSPAPER VIEWER — fully independent of .lightbox (no shared classes,
+   no shared JS state). Dark backdrop, contain-fit, zoom + pan + nav.
+   ========================================================================== */
+.press-viewer{
+  position:fixed; inset:0; z-index:10010; background: rgba(10,6,4,.95);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; visibility:hidden; transition: opacity .3s ease, visibility .3s ease;
+  touch-action:none;
+}
+.press-viewer.is-open{ opacity:1; visibility:visible; }
+
+.press-viewer__stage{
+  width:95vw; height:95vh;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative;
+}
+.press-viewer__zoomwrap{
+  display:flex; align-items:center; justify-content:center;
+  width:100%; height:100%;
+  will-change: transform;
+  transition: transform .15s ease-out;
+}
+.press-viewer__zoomwrap.is-dragging{ transition:none; }
+.press-viewer__zoomwrap img{
+  max-width:95vw; max-height:95vh;
+  width:auto; height:auto;
+  object-fit:contain;
+  user-select:none; -webkit-user-drag:none;
+  border-radius:6px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+
+.press-viewer__close{
+  position:absolute; top:26px; right:30px; background: rgba(255,255,255,.12); color:#fff;
+  border:none; width:44px; height:44px; border-radius:50%; font-size:18px;
+  cursor:pointer; z-index:2; transition: background .2s ease;
+}
+.press-viewer__close:hover{ background: rgba(255,255,255,.22); }
+
+.press-viewer__toolbar{
+  position:absolute; top:26px; left:30px; z-index:2;
+  display:flex; align-items:center; gap:8px;
+  background: rgba(255,255,255,.1); border-radius: var(--radius-pill);
+  padding:6px; backdrop-filter: blur(6px);
+}
+.press-viewer__btn{
+  background: rgba(255,255,255,.14); color:#fff; border:none;
+  width:38px; height:38px; border-radius:50%; font-size:16px; font-weight:700;
+  cursor:pointer; transition: background .2s ease;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.press-viewer__btn:hover{ background: rgba(255,255,255,.26); }
+#pressZoomReset{ width:auto; padding:0 14px; font-size:12.5px; font-weight:600; border-radius: var(--radius-pill); }
+
+.press-viewer__nav{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  background: rgba(255,255,255,.12); color:#fff; border:none;
+  width:52px; height:52px; border-radius:50%; font-size:20px;
+  cursor:pointer; transition: background .2s ease;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.press-viewer__nav:hover{ background: rgba(255,255,255,.24); }
+.press-viewer__nav--prev{ left:18px; }
+.press-viewer__nav--next{ right:18px; }
+.press-viewer__nav:disabled{ opacity:.3; cursor:default; }
+
+.press-viewer__counter{
+  position:absolute; bottom:22px; left:50%; transform:translateX(-50%);
+  color: rgba(255,255,255,.85); font-size:13px; letter-spacing:.03em;
+  background: rgba(255,255,255,.1); padding:6px 16px; border-radius: var(--radius-pill);
+}
+
+@media (max-width: 640px){
+  .press-viewer__toolbar{ top:auto; bottom:70px; left:50%; transform:translateX(-50%); }
+  .press-viewer__close{ top:16px; right:16px; }
+  .press-viewer__nav{ width:42px; height:42px; font-size:16px; }
+  .press-viewer__nav--prev{ left:8px; }
+  .press-viewer__nav--next{ right:8px; }
+  .press-viewer__counter{ bottom:22px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .press-viewer__zoomwrap{ transition:none; }
 }

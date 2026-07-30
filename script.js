@@ -293,3 +293,393 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
+
+/* ==========================================================================
+   PRESS COVERAGE — carousel (built from one master list) + "View More"
+   modal + dedicated Newspaper Viewer. Independent from the gallery
+   lightbox. #pressModalGrid is the single source of truth for every
+   cutting; the carousel is generated from it automatically.
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+
+  const modalGrid = document.getElementById('pressModalGrid');
+  if (!modalGrid) return;
+
+  const masterEls = Array.from(modalGrid.children).filter(el => el.classList.contains('press-card'));
+  masterEls.forEach((el, i) => el.setAttribute('data-press-index', String(i)));
+  const masterItems = masterEls.map(el => {
+    const im = el.querySelector('img');
+    return { src: im?.src || '', alt: im?.alt || 'समाचार पत्र' };
+  });
+
+  const track = document.getElementById('pressCarouselTrack');
+  if (track) {
+    // Build [clone-set][real interactive set][clone-set] so the auto-scroll
+    // can loop infinitely in either direction without a visible seam.
+    const formatCaptionMeta = (span) => {
+      if (!span) return;
+      const raw = span.textContent.trim();
+      const parts = raw.split('·').map(s => s.trim()).filter(Boolean);
+      const source = parts[0] || raw;
+      const date = parts[1] || '';
+      span.innerHTML = '<span class="press-carousel__source">📰 ' + source + '</span>' +
+        (date ? '<span class="press-carousel__date">📅 ' + date + '</span>' : '');
+    };
+    const buildCarouselSet = (hidden) => masterEls.map((el) => {
+      const clone = el.cloneNode(true);
+      if (hidden) {
+        clone.setAttribute('aria-hidden', 'true');
+        clone.setAttribute('tabindex', '-1');
+      } else {
+        clone.setAttribute('role', 'group');
+        clone.setAttribute('aria-roledescription', 'slide');
+      }
+      formatCaptionMeta(clone.querySelector('.press-card__caption span'));
+      return clone;
+    });
+    buildCarouselSet(true).forEach((c) => track.appendChild(c));
+    buildCarouselSet(false).forEach((c) => track.appendChild(c));
+    buildCarouselSet(true).forEach((c) => track.appendChild(c));
+  }
+
+  const viewer       = document.getElementById('pressViewer');
+  const stage        = document.getElementById('pressViewerStage');
+  const zoomWrap     = document.getElementById('pressZoomWrap');
+  const viewerImg    = document.getElementById('pressViewerImg');
+  const viewerClose  = document.getElementById('pressViewerClose');
+  const viewerPrev   = document.getElementById('pressPrev');
+  const viewerNext   = document.getElementById('pressNext');
+  const zoomInBtn    = document.getElementById('pressZoomIn');
+  const zoomOutBtn   = document.getElementById('pressZoomOut');
+  const zoomResetBtn = document.getElementById('pressZoomReset');
+  const counter      = document.getElementById('pressCounter');
+
+  let openViewer = () => {};
+  let closeViewer = () => {};
+
+  if (viewer && stage && viewerImg) {
+    let currentIndex = 0, scale = 1, panX = 0, panY = 0;
+    const MIN_SCALE = 1, MAX_SCALE = 5;
+
+    const applyTransform = (animate = true) => {
+      zoomWrap.classList.toggle('is-dragging', !animate);
+      zoomWrap.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+      zoomResetBtn.textContent = Math.round(scale * 100) + '%';
+    };
+    const clampPan = () => {
+      const r = stage.getBoundingClientRect();
+      const maxX = (r.width * (scale - 1)) / 2 + 40;
+      const maxY = (r.height * (scale - 1)) / 2 + 40;
+      panX = Math.max(-maxX, Math.min(maxX, panX));
+      panY = Math.max(-maxY, Math.min(maxY, panY));
+    };
+    const setScale = (next, animate = true) => {
+      scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, next));
+      if (scale === 1) { panX = 0; panY = 0; }
+      clampPan(); applyTransform(animate);
+    };
+    const resetView = (animate = true) => { scale = 1; panX = 0; panY = 0; applyTransform(animate); };
+    const renderCurrent = () => {
+      const item = masterItems[currentIndex];
+      if (!item) return;
+      resetView(false);
+      viewerImg.src = item.src; viewerImg.alt = item.alt;
+      counter.textContent = `${currentIndex + 1} / ${masterItems.length}`;
+      viewerPrev.disabled = masterItems.length <= 1;
+      viewerNext.disabled = masterItems.length <= 1;
+    };
+    const goTo = (delta) => {
+      if (!masterItems.length) return;
+      currentIndex = (currentIndex + delta + masterItems.length) % masterItems.length;
+      renderCurrent();
+    };
+
+    openViewer = (index) => {
+      currentIndex = index;
+      renderCurrent();
+      viewer.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    };
+    closeViewer = () => {
+      viewer.classList.remove('is-open');
+      const modalOpen = document.getElementById('pressModal')?.classList.contains('is-open');
+      document.body.style.overflow = modalOpen ? 'hidden' : '';
+    };
+
+    viewerClose.addEventListener('click', closeViewer);
+    viewer.addEventListener('click', (e) => { if (e.target === viewer) closeViewer(); });
+    viewerPrev.addEventListener('click', () => goTo(-1));
+    viewerNext.addEventListener('click', () => goTo(1));
+    zoomInBtn.addEventListener('click', () => setScale(scale + 0.4));
+    zoomOutBtn.addEventListener('click', () => setScale(scale - 0.4));
+    zoomResetBtn.addEventListener('click', () => resetView());
+
+    document.addEventListener('keydown', (e) => {
+      if (!viewer.classList.contains('is-open')) return;
+      if (e.key === 'ArrowLeft') goTo(-1);
+      else if (e.key === 'ArrowRight') goTo(1);
+      else if (e.key === '+' || e.key === '=') setScale(scale + 0.4);
+      else if (e.key === '-') setScale(scale - 0.4);
+    });
+
+    stage.addEventListener('wheel', (e) => {
+      if (!viewer.classList.contains('is-open')) return;
+      e.preventDefault();
+      setScale(scale + (e.deltaY < 0 ? 0.25 : -0.25));
+    }, { passive: false });
+
+    let isDragging = false, dragStartX = 0, dragStartY = 0, panStartX = 0, panStartY = 0;
+    zoomWrap.addEventListener('mousedown', (e) => {
+      if (scale <= 1) return;
+      isDragging = true; dragStartX = e.clientX; dragStartY = e.clientY; panStartX = panX; panStartY = panY;
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      panX = panStartX + (e.clientX - dragStartX);
+      panY = panStartY + (e.clientY - dragStartY);
+      clampPan(); applyTransform(false);
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    let touchStartX = 0, touchStartY = 0, pinchStartDist = 0, pinchStartScale = 1, touchPanning = false;
+    const touchDist = (t) => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+    stage.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 2) { pinchStartDist = touchDist(e.touches); pinchStartScale = scale; }
+      else if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
+        touchPanning = scale > 1; panStartX = panX; panStartY = panY;
+      }
+    }, { passive: true });
+    stage.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        setScale(pinchStartScale * (touchDist(e.touches) / pinchStartDist), false);
+      } else if (e.touches.length === 1 && touchPanning) {
+        e.preventDefault();
+        panX = panStartX + (e.touches[0].clientX - touchStartX);
+        panY = panStartY + (e.touches[0].clientY - touchStartY);
+        clampPan(); applyTransform(false);
+      }
+    }, { passive: false });
+    stage.addEventListener('touchend', (e) => {
+      if (e.changedTouches.length === 1 && scale <= 1 && !touchPanning) {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) goTo(dx < 0 ? 1 : -1);
+      }
+      touchPanning = false;
+    });
+  }
+
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('#pressCarouselTrack .press-card, #pressModalGrid .press-card');
+    if (!card) return;
+    const idx = card.dataset.pressIndex;
+    if (idx !== undefined) openViewer(Number(idx));
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('#pressCarouselTrack .press-card, #pressModalGrid .press-card');
+    if (!card) return;
+    e.preventDefault();
+    const idx = card.dataset.pressIndex;
+    if (idx !== undefined) openViewer(Number(idx));
+  });
+
+  const viewMoreBtn = document.getElementById('pressViewMoreBtn');
+  const pressModal = document.getElementById('pressModal');
+  const pressModalClose = document.getElementById('pressModalClose');
+  let closeModal = () => {};
+  if (viewMoreBtn && pressModal) {
+    const openModal = () => { pressModal.classList.add('is-open'); document.body.style.overflow = 'hidden'; };
+    closeModal = () => {
+      pressModal.classList.remove('is-open');
+      if (!viewer || !viewer.classList.contains('is-open')) document.body.style.overflow = '';
+    };
+    viewMoreBtn.addEventListener('click', openModal);
+    pressModalClose.addEventListener('click', closeModal);
+    pressModal.addEventListener('click', (e) => { if (e.target === pressModal) closeModal(); });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (viewer && viewer.classList.contains('is-open')) closeViewer();
+    else if (pressModal && pressModal.classList.contains('is-open')) closeModal();
+  });
+
+  if (track && masterEls.length) {
+    const N = masterEls.length;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const visibleCount = () => {
+      const w = window.innerWidth;
+      if (w <= 640) return 1;
+      if (w <= 1024) return 2;
+      if (w <= 1280) return 3;
+      return 4;
+    };
+    const cardStep = () => {
+      const card = track.querySelector('.press-card');
+      if (!card) return 280;
+      const cs = getComputedStyle(track);
+      const gap = parseFloat(cs.columnGap || cs.gap) || 26;
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    let pos = 0;          // virtual card index, kept close to [0, N)
+    let dragOffset = 0;   // live px offset while dragging
+    let isDragging = false;
+
+    const applyTransform = () => {
+      const x = -((N + pos) * cardStep()) + dragOffset;
+      track.style.transform = `translateX(${x}px)`;
+    };
+    const jumpInstant = () => {
+      track.classList.add('is-instant');
+      applyTransform();
+      void track.offsetHeight; // force reflow so the jump commits before easing returns
+      track.classList.remove('is-instant');
+    };
+    const normalize = () => {
+      if (pos >= N || pos < 0) { pos = ((pos % N) + N) % N; jumpInstant(); }
+    };
+    const goTo = (target) => {
+      let diff = target - pos;
+      if (diff > N / 2) diff -= N;
+      if (diff < -N / 2) diff += N;
+      pos += diff;
+      dragOffset = 0;
+      applyTransform(); // animates via the CSS transition
+    };
+    const next = () => goTo(Math.round(pos) + 1);
+    const prev = () => goTo(Math.round(pos) - 1);
+
+    jumpInstant();
+
+    /* ---- Pagination dots ---- */
+    const dotsWrap = document.getElementById('pressCarouselDots');
+    let dotEls = [];
+    const updateDots = () => {
+      if (!dotEls.length) return;
+      const perPage = visibleCount();
+      const normPos = ((pos % N) + N) % N;
+      const page = Math.round(normPos / perPage) % dotEls.length;
+      dotEls.forEach((d, i) => d.classList.toggle('is-active', i === page));
+    };
+    const buildDots = () => {
+      if (!dotsWrap) return;
+      const perPage = visibleCount();
+      const pages = Math.max(1, Math.ceil(N / perPage));
+      dotsWrap.innerHTML = '';
+      dotEls = [];
+      for (let i = 0; i < pages; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'press-carousel__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `स्लाइड ${i + 1}`);
+        dot.addEventListener('click', () => { pauseInteraction(); goTo(i * perPage); resumeSoon(); });
+        dotsWrap.appendChild(dot);
+        dotEls.push(dot);
+      }
+      updateDots();
+    };
+    buildDots();
+
+    track.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== 'transform') return;
+      normalize();
+      updateDots();
+    });
+
+    /* ---- Autoplay: efficient requestAnimationFrame timer ---- */
+    const INTERVAL = 3800;
+    let lastTick = 0, paused = false, tabHidden = document.hidden;
+    const loop = (t) => {
+      if (!lastTick) lastTick = t;
+      if (paused || tabHidden || isDragging || prefersReducedMotion) {
+        lastTick = t;
+      } else if (t - lastTick >= INTERVAL) {
+        next();
+        lastTick = t;
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+
+    const pauseInteraction = () => { paused = true; };
+    let resumeTimer;
+    const resumeSoon = (delay = 1500) => {
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => { paused = false; }, delay);
+    };
+
+    /* Pause on hover (desktop) */
+    track.addEventListener('mouseenter', pauseInteraction);
+    track.addEventListener('mouseleave', () => { paused = false; });
+
+    /* Pause when the browser tab is inactive; resume when it's active again */
+    document.addEventListener('visibilitychange', () => { tabHidden = document.hidden; });
+
+    /* Keyboard focus support */
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); pauseInteraction(); next(); resumeSoon(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); pauseInteraction(); prev(); resumeSoon(); }
+    });
+    track.addEventListener('focusin', pauseInteraction);
+    track.addEventListener('focusout', () => { paused = false; });
+
+    /* Drag (mouse) + swipe (touch/pen), unified via Pointer Events */
+    let pointerId = null, startX = 0, moved = false;
+
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pointerId = e.pointerId;
+      startX = e.clientX;
+      moved = false;
+      isDragging = true;
+      dragOffset = 0;
+      pauseInteraction();
+      track.classList.add('is-dragging');
+      try { track.setPointerCapture(pointerId); } catch (_) {}
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (!isDragging || e.pointerId !== pointerId) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 3) moved = true;
+      dragOffset = dx;
+      applyTransform();
+    });
+    const endDrag = (e) => {
+      if (!isDragging || (pointerId !== null && e.pointerId !== pointerId)) return;
+      isDragging = false;
+      track.classList.remove('is-dragging');
+      const step = cardStep();
+      const deltaSteps = Math.round(-dragOffset / step);
+      dragOffset = 0;
+      if (deltaSteps !== 0) goTo(pos + deltaSteps); else applyTransform();
+      pointerId = null;
+      resumeSoon(moved ? 1500 : 800);
+    };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('pointerleave', (e) => { if (isDragging) endDrag(e); });
+
+    /* A drag release shouldn't also open the newspaper viewer */
+    track.addEventListener('click', (e) => {
+      if (moved) { e.stopPropagation(); moved = false; }
+    }, true);
+
+    /* Touch-hold pause as a safety net on browsers with partial Pointer Events support */
+    track.addEventListener('touchstart', pauseInteraction, { passive: true });
+    track.addEventListener('touchend', () => resumeSoon(1500), { passive: true });
+
+    /* Responsive: recompute card width / dots on resize */
+    let resizeDebounce2;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeDebounce2);
+      resizeDebounce2 = setTimeout(() => { jumpInstant(); buildDots(); }, 200);
+    });
+  }
+
+});
